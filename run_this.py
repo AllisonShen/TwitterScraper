@@ -1,9 +1,17 @@
+#run this file at terminal for typing the password successfully
 
-from logInTwitter import LoginTwitter
-from twitterScraper import TwitterScraperUser
+from twitter_scraper import TwitterScraper
 
 # when login needed
-# login = LoginTwitter("https://twitter.com/login", "xiaxin.shen@outlook.com")
-# login.login()
+ts = TwitterScraper()
+ts.login("https://twitter.com/login", "xiaxin.shen@outlook.com")
+
 
 #when login not needed
+'''
+How to do scraping without login (needs to be figured out)
+'''
+
+##############################################################
+userScraped="CDCgov"
+ts.searchByUser(userScraped)
