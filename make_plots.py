@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib as plt
 import csv
+import os
 '''
 df = pd.read_csv(pathToCsvFile)
 pd.set_option('display.max_rows', None)
