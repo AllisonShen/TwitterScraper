@@ -20,7 +20,7 @@ import random
 #For file saving
 import os
 import csv
-import pandas
+
 
 
 #twitter scraper object
@@ -34,6 +34,7 @@ class TwitterScraper(object):
 		self.password = None
 		self.driver = Chrome()
 		self.filepath = "./outputs"
+		self.filename = None
 	def searchByUser(self, searchUsername): #can be run without logging in
 		self.searchUsername = searchUsername
 		#https://twitter.com/CDCgov
@@ -103,6 +104,9 @@ class TwitterScraper(object):
 				writer.writerow(header)
 			if data:
 				writer.writerow(data)
+		self.filename = filename
+	def getFilename(self):
+		return self.filename
 	def generateTweetId(self, tweet):
 		return ''.join(tweet)
 	def scrollDownPage(self, last_position, num_seconds_to_load=0.5, scroll_attempt=0, max_attempts=5):

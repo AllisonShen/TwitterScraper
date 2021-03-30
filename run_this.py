@@ -1,13 +1,18 @@
 from twitter_scraper import TwitterScraper
+from make_plots import MakePlots
+
 
 ts = TwitterScraper()
 
-# when login needed
-# ts.login("https://twitter.com/login", "xiaxin.shen@outlook.com")
+# login is not required
+twitterLogInLink = "https://twitter.com/login"
+twitterAccountEmail = "xiaxin.shen@outlook.com"
+ts.login(twitterLogInLink, twitterAccountEmail)
+
 # Specific User Scraping
 userScraped="CDCgov"
 ts.searchByUser(userScraped)
 
-'''
-How to do scraping without login (needs to be figured out)
-'''
+pathToCsvFile = ts.getFilename()
+mp = MakePlots(pathToCsvFile)
+mp.showPlots()
