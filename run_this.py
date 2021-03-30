@@ -13,6 +13,7 @@ ts.login(twitterLogInLink, twitterAccountEmail)
 userScraped="CDCgov"
 ts.searchByUser(userScraped)
 
+#draw plots
 pathToCsvFile = ts.getFilename()
 mp = MakePlots(pathToCsvFile)
 mp.showPlots()
