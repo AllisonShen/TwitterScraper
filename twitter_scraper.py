@@ -109,7 +109,7 @@ class TwitterScraper(object):
 		return self.filename
 	def generateTweetId(self, tweet):
 		return ''.join(tweet)
-	def scrollDownPage(self, last_position, num_seconds_to_load=0.5, scroll_attempt=0, max_attempts=50):
+	def scrollDownPage(self, last_position, num_seconds_to_load=0.5, scroll_attempt=0, max_attempts=150):
 		end_of_scroll_region = False
 		self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 		sleep(num_seconds_to_load)
