@@ -3,7 +3,7 @@ from twitter_scraper import TwitterScraper
 ts = TwitterScraper()
 
 # when login needed
-ts.login("https://twitter.com/login", "xiaxin.shen@outlook.com")
+# ts.login("https://twitter.com/login", "xiaxin.shen@outlook.com")
 # Specific User Scraping
 userScraped="CDCgov"
 ts.searchByUser(userScraped)
