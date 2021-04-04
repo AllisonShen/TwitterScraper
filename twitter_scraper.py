@@ -74,10 +74,10 @@ class TwitterScraper(object):
 		self.getAllPostsByUser()
 	def getAllPostsByUser(self):
 		self.saveToCsv(None, 'w')  # create file for saving records
-		end_of_scroll_region = False
-		unique_tweets = set()
-		last_position = None
-		while not end_of_scroll_region:
+		endOfScrollRegion = False
+		uniqueTweets = set()
+		lastPosition = None
+		while not endOfScrollRegion:
 			cards = self.collectTweetsCurrentView()
 			for card in cards:
 				try:
@@ -87,11 +87,11 @@ class TwitterScraper(object):
 				if not tweet:
 					continue
 				tweet_id = self.generateTweetId(tweet)
-				if tweet_id not in unique_tweets:
-					unique_tweets.add(tweet_id)
+				if tweet_id not in uniqueTweets:
+					uniqueTweets.add(tweet_id)
 					print(tweet)
 					self.saveToCsv(tweet)
-			last_position, end_of_scroll_region = self.scrollDownPage( last_position)
+			lastPosition, endOfScrollRegion = self.scrollDownPage( lastPosition)
 	def saveToCsv(self, data, mode='a+'):
 		if not os.path.exists(self.filepath):
 			print(self.filepath)
@@ -109,25 +109,25 @@ class TwitterScraper(object):
 		return self.filename
 	def generateTweetId(self, tweet):
 		return ''.join(tweet)
-	def scrollDownPage(self, last_position, num_seconds_to_load=0.5, scroll_attempt=0, max_attempts=150):
-		end_of_scroll_region = False
+	def scrollDownPage(self, lastPosition, numSecondsToLoad=0.5, scrollAttempt=0, maxAttempts=150):
+		endOfScrollRegion = False
 		self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-		sleep(num_seconds_to_load)
-		curr_position = self.driver.execute_script("return window.pageYOffset;")
-		if curr_position == last_position:
-			if scroll_attempt < max_attempts:
-				end_of_scroll_region = True
+		sleep(numSecondsToLoad)
+		currentPosition = self.driver.execute_script("return window.pageYOffset;")
+		if currentPosition == lastPosition:
+			if scrollAttempt < maxAttempts:
+				endOfScrollRegion = True
 			else:
-				self.drive = last_position
-				self.scrollDownPage(curr_position, scroll_attempt + 1)
-		last_position = curr_position
-		return last_position, end_of_scroll_region
-	def collectTweetsCurrentView(self, lookback_limit=25):
-		page_cards = self.driver.find_elements_by_xpath('//div[@data-testid="tweet"]')
-		if(len(page_cards) <= lookback_limit):
-			return page_cards
+				self.drive = lastPosition
+				self.scrollDownPage(currentPosition, scrollAttempt + 1)
+		lastPosition = currentPosition
+		return lastPosition, endOfScrollRegion
+	def collectTweetsCurrentView(self, lookbackLimit=25):
+		pageCards = self.driver.find_elements_by_xpath('//div[@data-testid="tweet"]')
+		if(len(pageCards) <= lookbackLimit):
+			return pageCards
 		else:
-			return page_cards[-lookback_limit:]
+			return pageCards[-lookbackLimit:]
 	def getDataCurrentCard(self, card):
 		try:
 			user = card.find_element_by_xpath('.//span').text
@@ -144,27 +144,27 @@ class TwitterScraper(object):
 		except exceptions.NoSuchElementException:
 			return
 		try:
-			_comment = card.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
+			comment = card.find_element_by_xpath('.//div[2]/div[2]/div[1]').text
 		except exceptions.NoSuchElementException:
-			_comment = ""
+			comment = ""
 		try:
-			_responding = card.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
+			responding = card.find_element_by_xpath('.//div[2]/div[2]/div[2]').text
 		except exceptions.NoSuchElementException:
-			_responding = ""
-		tweet_text = _comment + _responding
+			responding = ""
+		tweetText = comment + responding
 		try:
-			reply_count = card.find_element_by_xpath('.//div[@data-testid="reply"]').text
+			replyCount = card.find_element_by_xpath('.//div[@data-testid="reply"]').text
 		except exceptions.NoSuchElementException:
-			reply_count = ""
+			replyCount = ""
 		try:
-			retweet_count = card.find_element_by_xpath('.//div[@data-testid="retweet"]').text
+			retweetCount = card.find_element_by_xpath('.//div[@data-testid="retweet"]').text
 		except exceptions.NoSuchElementException:
-			retweet_count = ""
+			retweetCount = ""
 		try:
-			like_count = card.find_element_by_xpath('.//div[@data-testid="like"]').text
+			likeCount = card.find_element_by_xpath('.//div[@data-testid="like"]').text
 		except exceptions.NoSuchElementException:
-			like_count = ""
-		tweet = (user, handle, postdate, tweet_text, reply_count, retweet_count, like_count)
+			likeCount = ""
+		tweet = (user, handle, postdate, tweetText, replyCount, retweetCount, likeCount)
 		return tweet
 	def close(self):
 		self.driver.quit()
