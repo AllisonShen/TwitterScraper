@@ -11,10 +11,12 @@ class MakePlots(object):
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
     def makeplots(self):
+        # more code in future versions
         pass
 
     def showPlots(self):
         print(self.df.head(10))
         print(f"len: {len(self.df)}")
+        #more code in future versions
 
 
