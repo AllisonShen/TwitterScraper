@@ -12,7 +12,6 @@ class MakePlots(object):
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
     def makewordcloud(self):
-        # more code in future versions
         tweet_words = ''
         stopwords = set(STOPWORDS)
         for val in self.df.TweetText:
@@ -30,7 +29,7 @@ class MakePlots(object):
         plt.tight_layout(pad = 0)
         
     def makeplots(self):
-        
+        # more code in future versions
         pass
         
     def showPlots(self):
