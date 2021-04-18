@@ -3,6 +3,8 @@ import matplotlib as plt
 import csv
 import os
 from wordcloud import WordCloud, STOPWORDS
+#pip install seaborn
+
 
 class MakePlots(object):
     def __init__(self, pathToCSV):
