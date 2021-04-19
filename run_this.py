@@ -20,6 +20,6 @@ pathToCsvFile = "./outputs/CDCgov_posts_data.csv"
 pathToPlots = "./outputs/"
 mp = MakePlots(pathToCsvFile)
 mp.makeLinePlot()
-# mp.makewordcloud()
+mp.makewordcloud()
 # mp.showPlots()
 
