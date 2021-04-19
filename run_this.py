@@ -19,6 +19,7 @@ from make_plots import MakePlots
 pathToCsvFile = "./outputs/CDCgov_posts_data.csv"
 pathToPlots = "./outputs/"
 mp = MakePlots(pathToCsvFile)
-mp.makewordcloud()
-mp.showPlots()
+mp.makeLinePlot()
+# mp.makewordcloud()
+# mp.showPlots()
 

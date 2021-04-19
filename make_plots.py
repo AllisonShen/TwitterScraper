@@ -1,10 +1,10 @@
 import pandas as pd
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import csv
 import os
 from wordcloud import WordCloud, STOPWORDS
 #pip install seaborn
-
+import seaborn as sns
 
 class MakePlots(object):
     def __init__(self, pathToCSV):
@@ -29,7 +29,23 @@ class MakePlots(object):
         plt.imshow(wordcloud)
         plt.axis("off")
         plt.tight_layout(pad = 0)
-        
+    def makeLinePlot(self):
+        # self.df['Date'] = self.df['PostDate'].map(lambda x: x.date())
+        # df_groupedby_date = self.df.groupby('Date').count()
+        # df_groupedby_date.reset_index(inplace=True)
+        # plt.plot_date(x=df_groupedby_date['Date'], y=df_groupedby_date['Value'])
+        self.df['Date'] = pd.to_datetime(self.df['PostDate'], errors = 'coerce')
+        # self.df['ReplyCount'] = pd.to_numeric(self.df['ReplyCount'])
+        self.df['ReplyCount'] = self.df['ReplyCount'].apply(value_to_float)
+        print(type(self.df['Date']))
+        # print(self.df['Date'])
+        print(self.df['ReplyCount'])
+        graph = sns.lineplot(data=self.df,x='Date',y='ReplyCount')
+        plt.show()
+        # sns.lmplot(x='Date', y='ReplyCount')
+
+
+        pass
     def makeplots(self):
         # more code in future versions
         pass
@@ -39,5 +55,20 @@ class MakePlots(object):
         print(f"len: {len(self.df)}")
         plt.show()
         #more code in future versions
+
+def value_to_float(x):
+    if type(x) == float or type(x) == int:
+        return x
+    if 'K' or 'k' in x:
+        if len(x) > 1:
+            return float(x.replace('K', '')) * 1000
+        return 1000.0
+    if 'M' or 'm' in x:
+        if len(x) > 1:
+            return float(x.replace('M', '')) * 1000000
+        return 1000000.0
+    if 'B' or 'b' in x:
+        return float(x.replace('B', '')) * 1000000000
+    return 0.0
 
 
