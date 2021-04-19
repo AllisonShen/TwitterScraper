@@ -30,6 +30,12 @@ class MakePlots(object):
         plt.imshow(wordcloud)
         plt.axis("off")
         plt.tight_layout(pad = 0)
+        plotname = f"./outputs/wordcloud.png"
+
+        plt.savefig(plotname)
+        plt.show()
+        plt.close()
+        
     def makeLinePlot(self):
         # self.df['Date'] = self.df['PostDate'].map(lambda x: x.date())
         # df_groupedby_date = self.df.groupby('Date').count()
