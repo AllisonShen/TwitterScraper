@@ -5,6 +5,7 @@ import os
 from wordcloud import WordCloud, STOPWORDS
 #pip install seaborn
 import seaborn as sns
+import datetime
 
 class MakePlots(object):
     def __init__(self, pathToCSV):
@@ -41,7 +42,11 @@ class MakePlots(object):
         # print(self.df['Date'])
         print(self.df['ReplyCount'])
         graph = sns.lineplot(data=self.df,x='Date',y='ReplyCount')
+        date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
+        plotname = f"./outputs/plot_line_{date_string}.png"
+        plt.savefig(plotname)
         plt.show()
+        plt.close()
         # sns.lmplot(x='Date', y='ReplyCount')
 
 
