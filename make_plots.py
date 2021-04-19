@@ -43,7 +43,9 @@ class MakePlots(object):
         print(self.df['ReplyCount'])
         graph = sns.lineplot(data=self.df,x='Date',y='ReplyCount')
         date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
-        plotname = f"./outputs/plot_line_{date_string}.png"
+        # plotname = f"./outputs/plot_line_{date_string}.png"
+        plotname = f"./outputs/plot_line.png"
+
         plt.savefig(plotname)
         plt.show()
         plt.close()
