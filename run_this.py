@@ -21,5 +21,6 @@ pathToPlots = "./outputs/"
 mp = MakePlots(pathToCsvFile)
 mp.makeLinePlot()
 mp.makewordcloud()
+mp.makeHashtagWordCloud()
 # mp.showPlots()
 

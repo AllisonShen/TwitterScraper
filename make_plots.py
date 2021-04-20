@@ -6,6 +6,7 @@ from wordcloud import WordCloud, STOPWORDS
 #pip install seaborn
 import seaborn as sns
 import datetime
+import re
 
 class MakePlots(object):
     def __init__(self, pathToCSV):
@@ -31,6 +32,30 @@ class MakePlots(object):
         plt.axis("off")
         plt.tight_layout(pad = 0)
         plotname = f"./outputs/wordcloud.png"
+
+        plt.savefig(plotname)
+        plt.show()
+        plt.close()
+    
+    def makeHashtagWordCloud(self):
+        tweet_words = ''
+        for val in self.df.TweetText:
+            val = str(val)
+            tokens = val.split()
+            for i in range(len(tokens)):
+                tokens[i] = tokens[i].lower()
+            tweet_words += " ".join(tokens) + " "
+        hashtags = re.findall(r'(?:^|\s)(#[a-z\d_]+)', tweet_words)
+        stopwords = set(STOPWORDS)
+        hashtag_string = ''
+        hashtag_string += " ".join(hashtags) + " "
+        wordcloud = WordCloud(width = 800, height = 800, background_color ='white', stopwords = stopwords, min_font_size = 10).generate(hashtag_string)
+        
+        plt.figure(figsize = (8, 8), facecolor = None)
+        plt.imshow(wordcloud)
+        plt.axis("off")
+        plt.tight_layout(pad = 0)
+        plotname = f"./outputs/wordcloud_hashtags.png"
 
         plt.savefig(plotname)
         plt.show()
