@@ -110,7 +110,7 @@ class MakePlots(object):
         #########RetweetCount
         self.df['RetweetCount'] = self.df['RetweetCount'].apply(value_to_float)
         fig, ax = plt.subplots(figsize=(12, 6))
-        fig = sns.barplot(x="Date", y="LikeCount", data=self.df,
+        fig = sns.barplot(x="Date", y="RetweetCount", data=self.df,
                           estimator=sum, ci=None, ax=ax)
         self.makeplots("bar_RetweetCount")
     def showDFhead(self):

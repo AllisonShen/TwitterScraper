@@ -4,3 +4,4 @@ selenium==3.141.0
 easygui==0.98.2
 wordcloud==1.8.1
 seaborn
+

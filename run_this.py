@@ -3,7 +3,8 @@ from make_plots import MakePlots
 import pyinputplus as pyip
 import glob
 #account used for scraping
-#twitterscraper481@gmail.com password: Cnit481@
+#twitterscraper481@gmail.com
+#password: Cnit481@
 
 whichFunction = pyip.inputYesNo("Would you like to scrape the data: ")
 if(whichFunction=="yes"):
@@ -40,7 +41,7 @@ if(drawPlots=="yes"):
     # pathToCsvFile = "./outputs/CDCgov_posts_data.csv"
     pathToPlots = "./outputs/"
     mp = MakePlots(pathToCsvFile)
-    # mp.showDFhead()
+    mp.showDFhead()
     mp.makeLinePlot()
     mp.makeBarPlot()
     mp.makewordcloud()
