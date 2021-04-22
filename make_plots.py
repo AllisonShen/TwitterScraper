@@ -60,7 +60,7 @@ class MakePlots(object):
         plt.show()
         plt.close()
     def makeplots(self, strType):
-        date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
+        date_string = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M")
         plotname = f"./outputs/plot_{strType}_{date_string}.png"
         # plotname = f"./outputs/plot_line.png"
         plt.savefig(plotname)
