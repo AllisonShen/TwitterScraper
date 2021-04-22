@@ -113,7 +113,7 @@ class MakePlots(object):
         fig = sns.barplot(x="Date", y="LikeCount", data=self.df,
                           estimator=sum, ci=None, ax=ax)
         self.makeplots("bar_RetweetCount")
-    def showPlots(self):
+    def showDFhead(self):
         print(self.df.head(10))
         print(f"len: {len(self.df)}")
         plt.show()

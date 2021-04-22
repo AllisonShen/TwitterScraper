@@ -20,7 +20,7 @@ import random
 #For file saving
 import os
 import csv
-
+import datetime
 
 
 #twitter scraper object
@@ -96,7 +96,8 @@ class TwitterScraper(object):
 		if not os.path.exists(self.filepath):
 			print(self.filepath)
 			os.mkdir(self.filepath)
-		filename = f"{self.filepath}/{self.searchUsername}_posts_data.csv"
+		date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
+		filename = f"{self.filepath}/{self.searchUsername}_posts_data_{date_string}.csv"
 		header = ['User', 'Handle', 'PostDate', 'TweetText', 'ReplyCount', 'RetweetCount', 'LikeCount']
 		with open(filename, mode=mode, newline='', encoding='utf-8') as f:
 			writer = csv.writer(f)

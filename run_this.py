@@ -1,6 +1,8 @@
 from twitter_scraper import TwitterScraper
 from make_plots import MakePlots
 
+#account used for scraping
+#twitterscraper481@gmail.com password: Cnit481@
 
 # ts = TwitterScraper()
 #
@@ -14,6 +16,8 @@ from make_plots import MakePlots
 # ts.searchByUser(userScraped)
 # ts.close() #close the browser
 
+
+
 #draw plots
 # pathToCsvFile = ts.getFilename()
 pathToCsvFile = "./outputs/CDCgov_posts_data.csv"
@@ -24,5 +28,5 @@ mp.makeBarPlot()
 
 # mp.makewordcloud()
 # mp.makeHashtagWordCloud()
-# mp.showPlots()
+# mp.showDFhead()
 
