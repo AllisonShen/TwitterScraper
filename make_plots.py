@@ -11,7 +11,6 @@ import re
 class MakePlots(object):
     def __init__(self, pathToCSV):
         self.pathToCSV = pathToCSV
-        self.makeplots()
         self.df = pd.read_csv(self.pathToCSV)
         pd.set_option('display.max_rows', None)
         pd.set_option('display.max_columns', None)
@@ -60,34 +59,60 @@ class MakePlots(object):
         plt.savefig(plotname)
         plt.show()
         plt.close()
-        
-    def makeLinePlot(self):
-        # self.df['Date'] = self.df['PostDate'].map(lambda x: x.date())
-        # df_groupedby_date = self.df.groupby('Date').count()
-        # df_groupedby_date.reset_index(inplace=True)
-        # plt.plot_date(x=df_groupedby_date['Date'], y=df_groupedby_date['Value'])
-        self.df['Date'] = pd.to_datetime(self.df['PostDate'], errors = 'coerce')
-        # self.df['ReplyCount'] = pd.to_numeric(self.df['ReplyCount'])
-        self.df['ReplyCount'] = self.df['ReplyCount'].apply(value_to_float)
-        print(type(self.df['Date']))
-        # print(self.df['Date'])
-        print(self.df['ReplyCount'])
-        graph = sns.lineplot(data=self.df,x='Date',y='ReplyCount')
+    def makeplots(self, strType):
         date_string = datetime.datetime.now().strftime("%Y-%m-%d-%H:%M")
-        # plotname = f"./outputs/plot_line_{date_string}.png"
-        plotname = f"./outputs/plot_line.png"
-
+        plotname = f"./outputs/plot_{strType}_{date_string}.png"
+        # plotname = f"./outputs/plot_line.png"
         plt.savefig(plotname)
         plt.show()
         plt.close()
-        # sns.lmplot(x='Date', y='ReplyCount')
+    def makeLinePlot(self):
+        self.df['Date'] = pd.to_datetime(self.df['PostDate'], errors = 'coerce')
+        #######ReplyCount
+        self.df['ReplyCount'] = self.df['ReplyCount'].apply(value_to_float)
 
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.lineplot(x='Date',y='ReplyCount', data=self.df,
+                          estimator=sum, ci=None, ax=ax)
 
-        pass
-    def makeplots(self):
-        # more code in future versions
-        pass
-        
+        self.makeplots("line_replycount")
+        #########LikeCount
+        self.df['LikeCount'] = self.df['LikeCount'].apply(value_to_float)
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.lineplot(x='Date',y='LikeCount', data=self.df,
+                          estimator=sum, ci=None, ax=ax)
+
+        self.makeplots("line_likecount")
+        ########RetweetCount
+        self.df['RetweetCount'] = self.df['RetweetCount'].apply(value_to_float)
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.lineplot(x='Date', y='RetweetCount', data=self.df,
+                           estimator=sum, ci=None, ax=ax)
+
+        self.makeplots("line_RetweetCount")
+    def makeBarPlot(self):
+        self.df['Date'] = pd.to_datetime(self.df['PostDate'], errors = 'coerce')
+        ###########ReplyCount
+        self.df['ReplyCount'] = self.df['ReplyCount'].apply(value_to_float)
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.barplot(x="Date", y="ReplyCount", data=self.df,
+                          estimator=sum, ci=None, ax=ax)
+
+        self.makeplots("bar_replycount")
+
+        #########LikeCount
+        self.df['LikeCount'] = self.df['LikeCount'].apply(value_to_float)
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.barplot(x="Date", y="LikeCount", data=self.df,
+                          estimator=sum, ci=None, ax=ax)
+        self.makeplots("bar_likecount")
+
+        #########RetweetCount
+        self.df['RetweetCount'] = self.df['RetweetCount'].apply(value_to_float)
+        fig, ax = plt.subplots(figsize=(12, 6))
+        fig = sns.barplot(x="Date", y="LikeCount", data=self.df,
+                          estimator=sum, ci=None, ax=ax)
+        self.makeplots("bar_RetweetCount")
     def showPlots(self):
         print(self.df.head(10))
         print(f"len: {len(self.df)}")
