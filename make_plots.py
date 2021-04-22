@@ -123,13 +123,9 @@ def value_to_float(x):
     if type(x) == float or type(x) == int:
         return x
     if 'K' or 'k' in x:
-        if len(x) > 1:
-            return float(x.replace('K', '')) * 1000
-        return 1000.0
+        return float(x.replace('K', '')) * 1000
     if 'M' or 'm' in x:
-        if len(x) > 1:
-            return float(x.replace('M', '')) * 1000000
-        return 1000000.0
+        return float(x.replace('M', '')) * 1000000
     if 'B' or 'b' in x:
         return float(x.replace('B', '')) * 1000000000
     return 0.0
